@@ -212,7 +212,7 @@ struct PrintManager
       return PrintManager<TRest...>::print(typeId, ptr);
     }
     else if constexpr (sizeof...(TRest) == 0) {
-      std::cerr << "Datatype " << gal::TypeInfo<T>::name
+      std::cerr << "Datatype " << gal::TypeInfo<T>::name()
                 << " is not a printable object\n";
       throw std::bad_cast();
     }
@@ -267,12 +267,12 @@ public:
   };
 };
 
-struct TextFieldFunc : public gal::func::TVariable<std::string>,
+struct TextFieldFunc : public gal::func::TVariable<std::string, std::string>,
                        public gal::view::TextInput
 {
 public:
   TextFieldFunc(const std::string& label)
-      : gal::func::TVariable<std::string>("")
+      : gal::func::TVariable<std::string, std::string>("")
       , gal::view::TextInput(label, "") {};
 
 private:
